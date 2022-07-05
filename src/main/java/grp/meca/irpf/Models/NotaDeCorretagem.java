@@ -4,7 +4,7 @@
  * para as taxas a partir da diferença do valor bruto e o líquido.
  */
 
-package grp.meca.irpf.Models.Basico;
+package grp.meca.irpf.Models;
 
 import java.time.LocalDate;
 import java.util.List;

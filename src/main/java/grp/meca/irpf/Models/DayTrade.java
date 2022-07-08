@@ -17,7 +17,7 @@ import lombok.Data;
 public class DayTrade {
 	
 	/*
-	 * Sem este construtor, não foi possível usar dayTradeRepository em DayTradeController.
+	 * Sem este construtor, não é possível usar dayTradeRepository em DayTradeController.
 	 */
 	public DayTrade() {}
 	
@@ -49,4 +49,12 @@ public class DayTrade {
 	
 	@Column(nullable = false)
 	private LocalDate data;
+	
+	public double calculaLucro() {
+		return (precoVenda - precoCompra)*quantidade;
+	}
+	
+	public static double getTaxasIR() {
+		return 0.20;
+	}
 }

@@ -37,8 +37,8 @@ public class NotaDeCorretagem implements Comparable<NotaDeCorretagem> {
 	
 	public NotaDeCorretagem() {}
 	
-	public NotaDeCorretagem(LocalDate date, double valorLiquido) {
-		this.data = date;
+	public NotaDeCorretagem(LocalDate data, double valorLiquido) {
+		this.data = data;
 		this.valorLiquido = valorLiquido;
 	}
 	

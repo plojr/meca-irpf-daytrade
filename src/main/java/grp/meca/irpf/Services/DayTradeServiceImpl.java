@@ -8,12 +8,14 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.data.util.Pair;
+import org.springframework.stereotype.Service;
 
 import grp.meca.irpf.Models.DayTrade;
 import grp.meca.irpf.Models.NotaDeCorretagem;
 import grp.meca.irpf.Models.Ordem;
 import grp.meca.irpf.Models.Ticker;
 
+@Service
 public class DayTradeServiceImpl implements DayTradeService {
 	
 	@Override

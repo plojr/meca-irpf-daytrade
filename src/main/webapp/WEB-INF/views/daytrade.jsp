@@ -2,6 +2,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %><jsp:include page="header.jsp" />
 <title>Home</title>
+<style>
+th {
+	text-align: center
+}
+</style>
 </head>
 <body>
 <div class="container-fluid">
@@ -21,7 +26,7 @@
 					<tr>
 						<td><c:out value="${dayTrade.ticker.codigo}"></c:out></td>
 						<td><c:out value="${dayTrade.data}"></c:out></td>
-						<td><c:out value="${dayTrade.quantidade}%"></c:out></td>
+						<td><c:out value="${dayTrade.quantidade}"></c:out></td>
 						<td><c:out value="${dayTrade.precoCompra}"></c:out></td>
 						<td><c:out value="${dayTrade.precoVenda}"></c:out></td>
 					</tr>

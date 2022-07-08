@@ -20,7 +20,7 @@
 				<c:forEach items="${dayTrades}" var="dayTrade">
 					<tr>
 						<td><c:out value="${dayTrade.ticker.codigo}"></c:out></td>
-						<td><c:out value="${dayTrade.dataEvento}"></c:out></td>
+						<td><c:out value="${dayTrade.data}"></c:out></td>
 						<td><c:out value="${dayTrade.quantidade}%"></c:out></td>
 						<td><c:out value="${dayTrade.precoCompra}"></c:out></td>
 						<td><c:out value="${dayTrade.precoVenda}"></c:out></td>

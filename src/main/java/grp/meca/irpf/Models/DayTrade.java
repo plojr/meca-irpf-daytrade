@@ -2,7 +2,6 @@ package grp.meca.irpf.Models;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,12 +15,26 @@ import lombok.Data;
 @Data
 @Entity(name = "day_trade")
 public class DayTrade {
+	
+	/*
+	 * Sem este construtor, não foi possível usar dayTradeRepository em DayTradeController.
+	 */
+	public DayTrade() {}
+	
+	public DayTrade(Ticker ticker, int quantidade, double precoCompra, double precoVenda, LocalDate data) {
+		super();
+		this.ticker = ticker;
+		this.quantidade = quantidade;
+		this.precoCompra = precoCompra;
+		this.precoVenda = precoVenda;
+		this.data = data;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "ticker_id", nullable = false)
 	private Ticker ticker;
 	

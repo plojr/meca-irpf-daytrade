@@ -27,7 +27,7 @@ public class NotaDeCorretagem implements Comparable<NotaDeCorretagem> {
 	private int id;
 	
 	@Column(nullable = false)
-	private LocalDate date;
+	private LocalDate data;
 	
 	@Column(nullable = false)
 	private double valorLiquido;
@@ -38,13 +38,13 @@ public class NotaDeCorretagem implements Comparable<NotaDeCorretagem> {
 	public NotaDeCorretagem() {}
 	
 	public NotaDeCorretagem(LocalDate date, double valorLiquido) {
-		this.date = date;
+		this.data = date;
 		this.valorLiquido = valorLiquido;
 	}
 	
 	@Override
 	public int compareTo(NotaDeCorretagem nc) {
-		return this.getDate().compareTo(nc.getDate());
+		return this.getData().compareTo(nc.getData());
 	}
 
 }

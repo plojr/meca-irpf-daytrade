@@ -11,4 +11,5 @@ import grp.meca.irpf.Models.NotaDeCorretagem;
 public interface DayTradeService {
 
 	public List<DayTrade> getDayTrades(List<NotaDeCorretagem> corretagens);
+	
 }

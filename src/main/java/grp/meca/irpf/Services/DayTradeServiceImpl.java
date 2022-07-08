@@ -15,7 +15,7 @@ import grp.meca.irpf.Models.Ordem;
 import grp.meca.irpf.Models.Ticker;
 
 public class DayTradeServiceImpl implements DayTradeService {
-
+	
 	@Override
 	public List<DayTrade> getDayTrades(List<NotaDeCorretagem> corretagens) {
 		List<DayTrade> dayTrades = new ArrayList<>();
@@ -28,28 +28,40 @@ public class DayTradeServiceImpl implements DayTradeService {
 			 */
 			Map<String, Pair<Integer, Double>> notaConsolidadaCompras = new HashMap<>(), notaConsolidadaVendas = new HashMap<>();
 			// Set para guardar os tickers de forma única e poder acessá-los posteriormente.
-			Set<String> tickers = new LinkedHashSet<>();
+			Set<Ticker> tickers = new LinkedHashSet<>();
 			atualizarNotasDeCorretagem(notaConsolidadaCompras, notaConsolidadaVendas, tickers, corretagem);
-			for(String ticker: tickers) {
-				List<Ordem> ordensDayTrade = getOrdensDayTradeByTicker(ticker, notaConsolidadaCompras, notaConsolidadaVendas);
-				if(ordensDayTrade.size() != 0) {
-					
+			for(Ticker ticker: tickers) {
+				DayTrade dayTrade = getDayTradeByTicker(ticker, notaConsolidadaCompras, notaConsolidadaVendas);
+				if(dayTrade != null) { 
+					dayTrade.setData(corretagem.getData());
+					dayTrades.add(dayTrade);
 				}
 			}
 		});
 		return dayTrades;
 	}
 	
+	private DayTrade getDayTradeByTicker(Ticker ticker, Map<String, Pair<Integer, Double>> notaConsolidadaCompras,
+			Map<String, Pair<Integer, Double>> notaConsolidadaVendas) {
+		if(notaConsolidadaCompras.containsKey(ticker.getCodigo()) && notaConsolidadaVendas.containsKey(ticker.getCodigo())) {
+			int quantidade = Math.min(notaConsolidadaCompras.get(ticker.getCodigo()).getFirst(), notaConsolidadaVendas.get(ticker.getCodigo()).getFirst());
+			double precoMedioCompra = notaConsolidadaCompras.get(ticker.getCodigo()).getSecond()/notaConsolidadaCompras.get(ticker.getCodigo()).getFirst();
+			double precoMedioVenda = notaConsolidadaVendas.get(ticker.getCodigo()).getSecond()/notaConsolidadaVendas.get(ticker.getCodigo()).getFirst();
+			return new DayTrade(ticker, quantidade, precoMedioCompra, precoMedioVenda, null);
+		}
+		return null;
+	}
+	
 	private void atualizarNotasDeCorretagem(Map<String, Pair<Integer, Double>> notaConsolidadaCompras,
-			Map<String, Pair<Integer, Double>> notaConsolidadaVendas, Set<String> tickers,
+			Map<String, Pair<Integer, Double>> notaConsolidadaVendas, Set<Ticker> tickers,
 			NotaDeCorretagem corretagem) {
 		for(Ordem ordem: corretagem.getOrdens()) {
-			String ticker = ordem.getTicker().getCodigo();
+			Ticker ticker = ordem.getTicker();
 			tickers.add(ticker);
 			if(ordem.getTipo() == 'c')
-				atualizarNotaConsolidada(notaConsolidadaCompras, ticker, ordem);
+				atualizarNotaConsolidada(notaConsolidadaCompras, ticker.getCodigo(), ordem);
 			else
-				atualizarNotaConsolidada(notaConsolidadaVendas, ticker, ordem);
+				atualizarNotaConsolidada(notaConsolidadaVendas, ticker.getCodigo(), ordem);
 		}
 	}
 	
@@ -69,25 +81,5 @@ public class DayTradeServiceImpl implements DayTradeService {
 		}
 		else
 			notaConsolidada.put(ticker, Pair.of(ordem.getQuantidade(), ordem.getPreco()*ordem.getQuantidade()));
-	}
-	
-	private List<Ordem> getOrdensDayTradeByTicker(String ticker,
-			Map<String, Pair<Integer, Double>> notaConsolidadaCompras,
-			Map<String, Pair<Integer, Double>> notaConsolidadaVendas) {
-		List<Ordem> ordens = new ArrayList<>();
-		if(notaConsolidadaCompras.containsKey(ticker) && notaConsolidadaVendas.containsKey(ticker)) {
-			int quantidade = Math.min(notaConsolidadaCompras.get(ticker).getFirst(), notaConsolidadaVendas.get(ticker).getFirst());
-			double precoMedioCompra = notaConsolidadaCompras.get(ticker).getSecond()/notaConsolidadaCompras.get(ticker).getFirst();
-			double precoMedioVenda = notaConsolidadaVendas.get(ticker).getSecond()/notaConsolidadaVendas.get(ticker).getFirst();
-			try {
-				Ordem ordemVenda = new Ordem('v', quantidade, new Ticker(ticker), precoMedioVenda, null);
-				Ordem ordemCompra = new Ordem('c', quantidade, new Ticker(ticker), precoMedioCompra, null);
-				ordens.add(ordemCompra);
-				ordens.add(ordemVenda);
-			} catch(Exception e) {
-				System.err.println("Erro em DayTradeService.getOrdensDayTradeByTicker, com a seguinte mensagem: " + e.getMessage());
-			}
-		}
-		return ordens;
 	}
 }

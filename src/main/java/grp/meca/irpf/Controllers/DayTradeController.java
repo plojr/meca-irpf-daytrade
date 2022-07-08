@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import grp.meca.irpf.Models.DayTrade;
 import grp.meca.irpf.Models.NotaDeCorretagem;
 import grp.meca.irpf.Repositories.DayTradeRepository;
 import grp.meca.irpf.Repositories.NotaDeCorretagemRepository;
 import grp.meca.irpf.Repositories.OrdemRepository;
+import grp.meca.irpf.Services.DayTradeService;
+import grp.meca.irpf.Services.DayTradeServiceImpl;
 
 @Controller
 public class DayTradeController {
@@ -26,8 +29,15 @@ public class DayTradeController {
 
 	@GetMapping("gerar_daytrades")
 	public String addDayTradeBD() {
-		List<NotaDeCorretagem> corretagens = corretagemRepository.findAllByOrderByDateAsc();
+		List<NotaDeCorretagem> corretagens = corretagemRepository.findAllByOrderByDataAsc();
 		corretagens.forEach(nc -> nc.setOrdens(ordemRepository.findByNotaDeCorretagem(nc)));
+		dayTradeRepository.deleteAll();
+		DayTradeService dtService = new DayTradeServiceImpl();
+		List<DayTrade> dayTrades = dtService.getDayTrades(corretagens);
+		for(DayTrade dayTrade: dayTrades) {
+			System.out.println(dayTrade);
+			dayTradeRepository.save(dayTrade);
+		}
 		return "redirect:/mostrar_daytrades";
 	}
 	

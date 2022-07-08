@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 import grp.meca.irpf.Models.DayTrade;
 
 @Repository
-public interface DayTradeRepository extends JpaRepository<DayTrade, Integer> {}
+public interface DayTradeRepository extends JpaRepository<DayTrade, Integer> {
+}

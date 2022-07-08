@@ -6,9 +6,8 @@
 	<div class="row flex-nowrap">
 		<jsp:include page="sidebar.jsp" />
 		<div class="col py-3">
-		<h2>MeCa-IRPF-DayTrade</h2>
-		<p>Não é possível cadastrar as notas de corretagem a partir deste módulo. Para isso, você precisa usar o módulo Meca-IRPF-Cadastro.</p>
-		<p>Os trades são gerados a partir das notas de corretagem que foram adicionadas usando o módulo.</p>
+		<h2>Relatório Day Trade</h2>
+		
 		<button class="btn" onclick="document.body.scrollTop = 0; document.documentElement.scrollTop = 0;">
 		Ir para o topo
 		</button>

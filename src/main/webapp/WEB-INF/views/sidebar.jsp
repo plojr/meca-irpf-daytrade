@@ -10,12 +10,16 @@
                         </a>
                     </li>
                     <li>
-                        <a href="calculo" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Cálculo Day Trade</span> </a>
+                        <a href="gerar_daytrades" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Gerar day trades do investidor</span> </a>
                     </li>
                     <li>
-                        <a href="ler_dados" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Ler dados Day Trade</span></a>
+                        <a href="mostrar_daytrades" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Mostrar day trades do investidor</span></a>
+                    </li>
+                    <li>
+                        <a href="gerar_relatorio_daytrade" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Gerar relatório day trade</span></a>
                     </li>
                 </ul>
             </div>

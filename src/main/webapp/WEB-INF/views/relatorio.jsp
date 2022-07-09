@@ -51,6 +51,25 @@ td, th {
 			</c:forEach>
 		</table>
 		
+		
+		<h3>Imposto de renda mensal a pagar</h3>
+		<table class="table table-bordered">
+			<tr>
+				<th>Ano</th>
+				<th>Mês</th>
+				<th>Imposto de renda</th>
+			<tr>
+			<c:forEach var="ano" items="${relatorio.anoMesImpostoDeRenda}">
+				<c:forEach var="mesImpostoDeRenda" items="${ano.value}">
+				<tr>
+					<td><c:out value="${ano.key}"></c:out></td>
+					<td><c:out value="${mesImpostoDeRenda.key}"></c:out></td>
+					<td><c:out value="${mesImpostoDeRenda.value}"></c:out></td>
+				</tr>
+				</c:forEach>
+			</c:forEach>
+		</table>
+		
 		<button class="btn" onclick="document.body.scrollTop = 0; document.documentElement.scrollTop = 0;">
 		Ir para o topo
 		</button>

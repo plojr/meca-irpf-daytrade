@@ -31,8 +31,19 @@ public class RelatorioDayTradeServiceImpl implements RelatorioDayTradeService {
 
 	private Map<Integer, Map<Integer, Double>> calculaImpostoDeRenda(Map<Integer, Map<Integer, Double>> anoMesLucro,
 			Map<Integer, Map<Integer, Double>> anoMesPrejuizoAcumulado) {
-		
-		return null;
+		Map<Integer, Map<Integer, Double>> anoMesImpostoDeRenda = new TreeMap<>();
+		double prejuizoAcumuladoCorrente = 0;
+		for(Entry<Integer, Map<Integer, Double>> entryAnoMesLucro: anoMesLucro.entrySet()) {
+			int ano = entryAnoMesLucro.getKey();
+			for(Entry<Integer, Double> entryMesLucro: entryAnoMesLucro.getValue().entrySet()) {
+				int mes = entryMesLucro.getKey();
+				double lucro = entryMesLucro.getValue();
+				double impostoDeRenda = Math.max(0, DayTrade.getTaxasIR()*(lucro - prejuizoAcumuladoCorrente));
+				MapUtil.put(anoMesImpostoDeRenda, ano, mes, impostoDeRenda);
+				prejuizoAcumuladoCorrente = anoMesPrejuizoAcumulado.get(ano).get(mes);
+			}
+		}
+		return anoMesImpostoDeRenda;
 	}
 
 	private Map<Integer, Map<Integer, Double>> calculaPrejuizoAcumulado(Map<Integer, Map<Integer, Double>> anoMesLucro) {

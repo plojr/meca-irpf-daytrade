@@ -31,7 +31,7 @@ public class RelatorioDayTradeServiceImpl implements RelatorioDayTradeService {
 
 	private Map<Integer, Map<Integer, Double>> calculaImpostoDeRenda(Map<Integer, Map<Integer, Double>> anoMesLucro,
 			Map<Integer, Map<Integer, Double>> anoMesPrejuizoAcumulado) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -45,6 +45,12 @@ public class RelatorioDayTradeServiceImpl implements RelatorioDayTradeService {
 				double lucro = entryMesLucro.getValue();
 				if(lucro < 0)
 					prejuizoAcumulado += Math.abs(lucro);
+				else {
+					if(prejuizoAcumulado > lucro)
+						prejuizoAcumulado -= lucro;
+					else
+						prejuizoAcumulado = 0;
+				}
 				MapUtil.add(anoMesPrejuizoAcumulado, ano, mes, prejuizoAcumulado);
 			}
 		}

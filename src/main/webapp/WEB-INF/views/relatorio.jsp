@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="header.jsp" />
-<title>Home</title>
+<title>Relatório para o software da Receita Federal</title>
 <style>
 td, th {
 	text-align: center

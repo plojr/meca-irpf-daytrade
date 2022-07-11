@@ -1,5 +1,6 @@
 package grp.meca.irpf.Utils;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,5 +32,12 @@ public class MapUtil {
 			localMap.put(secondKey, value);
 			map.put(firstKey, localMap);
 		}
+	}
+	
+	public static void add(Map<LocalDate, Double> map, LocalDate key, double value) {
+		if(map.containsKey(key))
+			map.put(key, value + map.get(key));
+		else
+			map.put(key, value);
 	}
 }

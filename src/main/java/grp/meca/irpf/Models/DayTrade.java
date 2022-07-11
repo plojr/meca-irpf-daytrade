@@ -50,8 +50,42 @@ public class DayTrade {
 	@Column(nullable = false)
 	private LocalDate data;
 	
-	public double calculaLucro() {
+	public double getLucro() {
 		return (precoVenda - precoCompra)*quantidade;
+	}
+	
+	public double getNegociacao() {
+		return (precoVenda + precoCompra)*quantidade;
+	}
+	
+	/*
+	 * Tabela retirada do site, acessado em 10/07/2022, 
+	 * https://www.b3.com.br/pt_br/produtos-e-servicos/tarifas/listados-a-vista-e-derivativos/renda-variavel/tarifas-de-acoes-e-fundos-de-investimento/a-vista/
+	 */
+	public static double calculaTaxas(double negociacaoDiaria) {
+		if(negociacaoDiaria <= 1000000.)
+			return 0.00023*negociacaoDiaria;
+		if(negociacaoDiaria <= 5000000.)
+			return 0.000225*negociacaoDiaria;
+		if(negociacaoDiaria <= 10000000.)
+			return 0.00021*negociacaoDiaria;
+		if(negociacaoDiaria <= 40000000.)
+			return 0.0002*negociacaoDiaria;
+		if(negociacaoDiaria <= 150000000.)
+			return 0.000185*negociacaoDiaria;
+		if(negociacaoDiaria <= 300000000.)
+			return 0.000175*negociacaoDiaria;
+		if(negociacaoDiaria <= 700000000.)
+			return 0.00016*negociacaoDiaria;
+		if(negociacaoDiaria <= 1000000000.)
+			return 0.000145*negociacaoDiaria;
+		if(negociacaoDiaria <= 2000000000.)
+			return 0.000135*negociacaoDiaria;
+		if(negociacaoDiaria <= 3000000000.)
+			return 0.000125*negociacaoDiaria;
+		if(negociacaoDiaria <= 4000000000.)
+			return 0.00012*negociacaoDiaria;
+		return 0.00011*negociacaoDiaria;
 	}
 	
 	public static double getTaxasIR() {

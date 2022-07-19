@@ -1,5 +1,7 @@
 # MeCa-IRPF-DayTrade
 
+Status: em andamento.
+
 ## Resumo
 
 Este módulo é responsável por calcular os day trades existentes a partir do módulo cadastro. 
